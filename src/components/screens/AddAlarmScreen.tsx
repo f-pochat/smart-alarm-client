@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text} from "react-native";
+import DaysPicker from "../AddAlarm/DaysPicker";
+import {Day} from "../../models/alarm";
 
 const AddAlarmScreen = () => {
-
+    const [weekdays, setWeekdays] = useState([])
     return (
         <View>
-            <Text>Hola trans</Text>
+            <DaysPicker
+            weekdays={weekdays}
+            setWeekdays={(e:any)=>setWeekdays(e)}
+            ></DaysPicker>
         </View>
     );
 };
