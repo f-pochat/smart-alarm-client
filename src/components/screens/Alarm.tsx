@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet} from "react-native";
 import {Switch} from 'react-native-switch';
 
+export const addLeadingZeros=(num:number) => {
+    return String(num).padStart(2,'0')
+}
+
 const Alarm = (props: any) => {
     const [isEnabled, setIsEnabled] = useState(true)
-    const addLeadingZeros=(num:number) => {
-        return String(num).padStart(2,'0')
-    }
+
     return (
         <View style={styles.container}>
             <Text
