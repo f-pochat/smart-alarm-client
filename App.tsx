@@ -1,10 +1,10 @@
 import { View } from 'react-native';
-import TextExample from "./src/components/TextExample";
+import HomeScreen from "./src/components/screens/HomeScreen";
 
 export default function App() {
   return (
     <View>
-      <TextExample/>
+      <HomeScreen/>
     </View>
   );
 }
