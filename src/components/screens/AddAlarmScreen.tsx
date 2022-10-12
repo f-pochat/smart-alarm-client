@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import {View, Button, StyleSheet, TouchableOpacity, Text, DatePickerAndroid} from "react-native";
 import {DateTimePickerAndroid, } from "@react-native-community/datetimepicker";
+import React, {useState} from 'react';
+import {View, Text} from "react-native";
+import DaysPicker from "../AddAlarm/DaysPicker";
+import {Day} from "../../models/alarm";
 
 const AddAlarmScreen = () => {
     const [isSmart, setIsSmart] = useState(false);
@@ -20,7 +24,13 @@ const AddAlarmScreen = () => {
         showMode('time');
     };
 
+    const [weekdays, setWeekdays] = useState([])
     return (
+        <View>
+            <DaysPicker
+            weekdays={weekdays}
+            setWeekdays={(e:any)=>setWeekdays(e)}
+            ></DaysPicker>
         <View style={styles.container}>
             <View style={{ flexDirection: "row" }}>
                 <View style={{ flexDirection: "row"}}>
