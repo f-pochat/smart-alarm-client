@@ -1,21 +1,55 @@
-import React from 'react';
-import {StyleSheet, View, Text} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View, Text, ScrollView, StatusBar, TouchableOpacity, Button} from "react-native";
 import Alarm from "./Alarm";
+import RNDateTimePicker, {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
+import {IAlarm} from "../../models/alarm";
 
-const HomeScreen = () => {
-    const alarms = [10,9,8,7,6,5]
+const HomeScreen = ({navigation}: {navigation: any}) => {
+    const [alarms, setAlarms] = useState<IAlarm[]>([])
+    const [date, setDate] = useState(new Date());
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Button onPress={()=>navigation.navigate('AddAlarm')} title="Show time picker!" />
+            )
+
+        })
+    })
+    const onChange = (event:any, selectedDate:any) => {
+        setAlarms(state => [
+            ...state,
+            selectedDate
+        ])
+    };
+
+    const showMode = (currentMode:any) => {
+        DateTimePickerAndroid.open({
+            value: date,
+            onChange,
+            mode: currentMode,
+            is24Hour: true,
+        });
+    };
+    const showTimepicker = () => {
+        showMode('time');
+    };
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.plus}>+</Text>
-            </View>
+            <StatusBar barStyle='light-content'/>
             {
-                alarms.map(a => {
-                    return(
-                        <Alarm alarm={a}/>
-                    )
-                })
             }
+            <ScrollView
+                contentContainerStyle={{paddingBottom: 30}}
+                style={styles.scroll}>
+                {
+                    alarms.map(a => {
+                        return(
+                            <Alarm alarm={a}/>
+                        )
+                    })
+                }
+            </ScrollView>
         </View>
     );
 };
@@ -23,9 +57,6 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#040405',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
     },
     header: {
         display: 'flex',
@@ -34,10 +65,13 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'center',
         paddingRight: 30,
+        elevation: 35,
+        zIndex:35,
+        shadowColor: '#000'
     },
-    plus: {
-        fontWeight: 'bold',
-        fontSize: 40
+    scroll: {
+        height: '100%',
+        flexGrow: 1,
     }
 })
 

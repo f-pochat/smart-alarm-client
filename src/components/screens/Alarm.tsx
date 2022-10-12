@@ -1,16 +1,25 @@
 import React, {useState} from 'react';
-import {View, Text, Switch, StyleSheet} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
+import {Switch} from 'react-native-switch';
 
 const Alarm = (props: any) => {
     const [isEnabled, setIsEnabled] = useState(true)
+    const addLeadingZeros=(num:number) => {
+        return String(num).padStart(2,'0')
+    }
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{props.alarm}:00</Text>
+            <Text
+                style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                {`${addLeadingZeros(props.alarm.getHours())}:${addLeadingZeros(props.alarm.getMinutes())}`}
+            </Text>
             <Switch
-                style={styles.switch}
-                trackColor={{ false: "#767577", true: "#581217" }}
-                thumbColor={isEnabled ? "#f70109" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
+                backgroundActive='#0784b5'
+                backgroundInactive='gray'
+                circleActiveColor='#39ace7'
+                circleBorderWidth={0}
+                renderActiveText={false}
+                renderInActiveText={false}
                 onValueChange={() => setIsEnabled(!isEnabled)}
                 value={isEnabled}
             />
@@ -20,24 +29,28 @@ const Alarm = (props: any) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: 100,
         margin: 10,
-        backgroundColor: '#A2A2A4',
+        backgroundColor: '#222',
         borderRadius: 20,
-        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center'
     },
 
     text: {
-      fontSize: 40,
-        fontWeight: 'bold',
+        fontSize: 40,
     },
 
-    switch: {
-        transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }]
-    }
+    disabledColor: {
+        color: '#666',
+        fontWeight: '100'
+    },
+
+    enabledColor: {
+        color: '#aaa',
+        fontWeight: '200'
+    },
 })
 
 export default Alarm;
