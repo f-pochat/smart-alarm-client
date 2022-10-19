@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import {Switch} from 'react-native-switch';
 import {colorPalette} from "../common/constants/ColorPalette";
 
@@ -11,7 +11,7 @@ const Alarm = (props: any) => {
     const [isEnabled, setIsEnabled] = useState(true);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, isEnabled ? {backgroundColor: colorPalette.secondary_dark} : {backgroundColor: colorPalette.dark}]}>
             <View style={styles.rowContainer}>
                 <Text
                     style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     container: {
         height: 100,
         margin: 10,
-        backgroundColor: colorPalette.dark,
         borderRadius: 20,
     },
 

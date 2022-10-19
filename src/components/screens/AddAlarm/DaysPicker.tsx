@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {StyleSheet, View,Text} from 'react-native'
+import {View} from 'react-native'
 import { DayPicker } from 'react-native-picker-weekday'
 import {colorPalette} from "../../common/constants/ColorPalette";
 const DaysPicker = (props:any) => {

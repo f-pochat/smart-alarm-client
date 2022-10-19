@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text} from "react-native";
 import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
-import { Day, IAlarm} from "../../models/alarm";
+import { IAlarm} from "../../models/alarm";
 import {colorPalette} from "../common/constants/ColorPalette";
 
 const HomeScreen = ({navigation}: { navigation: any }) => {

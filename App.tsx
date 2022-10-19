@@ -12,7 +12,7 @@ export default function App() {
   return (
       <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
-              <Stack.Screen name="Home" component={HomeScreen} options={({ navigation }) => ({
+              <Stack.Screen name="Home" component={HomeScreen} options={() => ({
 
                   title: "",
                   headerStyle: {
@@ -20,7 +20,7 @@ export default function App() {
                   },
               })}
               />
-              <Stack.Screen name="AddAlarm" component={AddAlarmScreen} options={({ navigation }) => ({
+              <Stack.Screen name="AddAlarm" component={AddAlarmScreen} options={() => ({
 
                   title: "",
                   headerStyle: {
@@ -32,9 +32,3 @@ export default function App() {
       </NavigationContainer>
   );
 }
-const styles = StyleSheet.create({
-    plus: {
-        fontWeight: 'bold',
-        fontSize: 40
-    },
-})
