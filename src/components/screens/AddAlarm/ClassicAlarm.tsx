@@ -13,7 +13,7 @@ import {useCreateAlarm} from "../../../hooks/useCreateAlarm";
 import {getDayByNumber, IAlarm} from "../../../models/alarm";
 
 
-export const ClassicAlarm = () => {
+export const ClassicAlarm = ({navigation}:{navigation: any}) => {
     const [date, setDate] = useState(new Date());
     const [text, setText] = useState("");
     const [weekdays, setWeekdays] = useState([])
@@ -37,9 +37,15 @@ export const ClassicAlarm = () => {
         days: weekdays.map((day: any) => getDayByNumber(day))
     }
 
-    const createAlarm = () => {
-        useCreateAlarm(newAlarm)
-    }
+    const {createAlarm} = useCreateAlarm(newAlarm,
+        {
+            onCompleted: () => {
+                navigation.navigate('Home')
+            },
+            onError: (error: any) => {
+                console.log(error)
+            }
+        })
 
     const showTimepicker = () => {
         showMode('time');
@@ -70,7 +76,7 @@ export const ClassicAlarm = () => {
                     weekdays={weekdays}
                     setWeekdays={(e: any) => setWeekdays(e)}
                 />
-                <TouchableOpacity style={styles.button4} onPress={() => createAlarm()} >
+                <TouchableOpacity style={styles.button4} onPress={createAlarm}>
                     <Text style={{display: 'flex', alignSelf: 'center', marginTop: 15, color: 'white', fontWeight: 'bold'}} > Save </Text>
                 </TouchableOpacity>
             </View>

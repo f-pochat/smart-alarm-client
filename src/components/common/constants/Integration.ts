@@ -1,1 +1,1 @@
-export const BACKEND_URL = "http://localhost:8080";
+export const BACKEND_URL = "https://9f22-186-0-228-202.sa.ngrok.io";

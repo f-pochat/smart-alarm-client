@@ -1,9 +1,9 @@
 import alarm from "../components/screens/Alarm";
-import Alarm from "../components/screens/Alarm";
 import {IAlarm} from "../models/alarm";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import {BACKEND_URL} from "../components/common/constants/Integration";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IOptions {
     onCompleted?: (data: any) => void;
@@ -14,8 +14,14 @@ export const useCreateAlarm = (alarm: IAlarm, options?: IOptions) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        axios.post(BACKEND_URL + '/alarms', alarm)
+    const createAlarm = async () => {
+        console.log(BACKEND_URL + 'alarm')
+        axios.post(BACKEND_URL + '/alarm', {
+            ...alarm,
+            createdAt: new Date(),
+            isActive: true,
+            deviceId: await AsyncStorage.getItem('deviceId')
+        })
             .then((response) => {
                 options?.onCompleted && options.onCompleted(response.data)
                 setLoading(false)
@@ -25,7 +31,7 @@ export const useCreateAlarm = (alarm: IAlarm, options?: IOptions) => {
                 setError(e.message)
                 setLoading(false)
             })
-    });
+    }
 
-    return {loading, error}
+    return {createAlarm, loading, error}
 }
