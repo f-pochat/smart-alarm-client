@@ -1,10 +1,10 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import HomeScreen from "./src/components/screens/HomeScreen";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import AddAlarmScreen from "./src/components/screens/AddAlarmScreen";
 import React from "react";
-import DaysPicker from "./src/components/AddAlarm/DaysPicker";
+import {colorPalette} from "./src/models/alarm";
 
 const Stack = createNativeStackNavigator()
 
@@ -16,7 +16,7 @@ export default function App() {
 
                   title: "",
                   headerStyle: {
-                      backgroundColor:'#444'
+                      backgroundColor:colorPalette.tertiary
                   },
               })}
               />
@@ -24,15 +24,7 @@ export default function App() {
 
                   title: "",
                   headerStyle: {
-                      backgroundColor:'#444'
-                  },
-              })}
-              />
-              <Stack.Screen name="DaysPicker" component={DaysPicker} options={({ navigation }) => ({
-
-                  title: "",
-                  headerStyle: {
-                      backgroundColor:'#444'
+                      backgroundColor:colorPalette.tertiary
                   },
               })}
               />
