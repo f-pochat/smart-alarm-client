@@ -7,6 +7,10 @@ import DaysPicker from "./DaysPicker";
 import React, {useState} from "react";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {colorPalette} from "../../common/constants/ColorPalette";
+import axios from "axios";
+import {BACKEND_URL} from "../../common/constants/Integration";
+import {useCreateAlarm} from "../../../hooks/useCreateAlarm";
+import {getDayByNumber, IAlarm} from "../../../models/alarm";
 
 
 export const ClassicAlarm = () => {
@@ -26,6 +30,16 @@ export const ClassicAlarm = () => {
             is24Hour: true,
         });
     };
+
+    const newAlarm: IAlarm = {
+        time: date,
+        name: text,
+        days: weekdays.map((day: any) => getDayByNumber(day))
+    }
+
+    const createAlarm = () => {
+        useCreateAlarm(newAlarm)
+    }
 
     const showTimepicker = () => {
         showMode('time');
@@ -56,8 +70,8 @@ export const ClassicAlarm = () => {
                     weekdays={weekdays}
                     setWeekdays={(e: any) => setWeekdays(e)}
                 />
-                <TouchableOpacity style={styles.button4} >
-                    <Text style={{display: 'flex', alignSelf: 'center', marginTop: 15, color: 'white', fontWeight: 'bold'}}> Save </Text>
+                <TouchableOpacity style={styles.button4} onPress={() => createAlarm()} >
+                    <Text style={{display: 'flex', alignSelf: 'center', marginTop: 15, color: 'white', fontWeight: 'bold'}} > Save </Text>
                 </TouchableOpacity>
             </View>
         )
