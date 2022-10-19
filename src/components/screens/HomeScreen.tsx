@@ -6,6 +6,7 @@ import {IAlarm} from "../../models/alarm";
 import {colorPalette} from "../common/constants/ColorPalette";
 import axios from "axios";
 import {BACKEND_URL} from "../common/constants/Integration";
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 const HomeScreen = ({navigation}: { navigation: any }) => {
     const [alarms, setAlarms] = useState<IAlarm[]>([{
@@ -58,22 +59,53 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content'/>
-            {
-            }
-            <ScrollView
-                contentContainerStyle={{paddingBottom: 30}}
-                style={styles.scroll}>
-                {
-                    alarms.map(a => {
-                        return (
-                            <Alarm alarm={a}/>
-                        )
-                    })
-                }
-            </ScrollView>
+            <SwipeListView
+                        data={alarms}
+                        renderItem={ (data, rowMap) => (
+                            <View>
+                                <Alarm alarm={data}/>
+                            </View>
+                        )}
+                        renderHiddenItem={ (data, rowMap) => (
+                            <View>
+                                <Text>Left</Text>
+                                <Text>Right</Text>
+                            </View>
+                        )}
+                        stopLeftSwipe={20}
+                        stopRightSwipe={-100}
+                        rightOpenValue={-100}
+                    />
+            {/*<ScrollView*/}
+            {/*    contentContainerStyle={{paddingBottom: 30}}*/}
+            {/*    style={styles.scroll}>*/}
+            {/*    {*/}
+            {/*        alarms.map(a => {*/}
+            {/*            return (*/}
+            {/*                <Alarm alarm={a}/>*/}
+            {/*            )*/}
+            {/*        })*/}
+            {/*    }*/}
+            {/*</ScrollView>*/}
         </View>
     );
 };
+//<SwipeListView
+//             data={this.state.listViewData}
+//             renderItem={ (data, rowMap) => (
+//                 <View style={styles.rowFront}>
+//                     <Text>I am {data.item.text} in a SwipeListView</Text>
+//                 </View>
+//             )}
+//             renderHiddenItem={ (data, rowMap) => (
+//                 <View style={styles.rowBack}>
+//                     <Text>Left</Text>
+//                     <Text>Right</Text>
+//                 </View>
+//             )}
+//             leftOpenValue={75}
+//             rightOpenValue={-75}
+//         />
 
 const styles = StyleSheet.create({
     container: {
