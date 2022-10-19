@@ -1,6 +1,6 @@
 import {Text, View} from "react-native";
 import React from "react";
-import {colorPalette} from "../../models/alarm";
+import {colorPalette} from "../../common/constants/ColorPalette";
 
 export const SmartAlarm = () => {
     return (

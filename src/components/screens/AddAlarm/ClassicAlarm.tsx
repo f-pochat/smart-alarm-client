@@ -1,12 +1,12 @@
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {addLeadingZeros} from "../screens/Alarm";
+import {addLeadingZeros} from "../Alarm";
 import {getHours, getMinutes} from "date-fns";
 import {Clock} from "react-native-feather";
 import {TextInput} from "react-native-paper";
 import DaysPicker from "./DaysPicker";
 import React, {useState} from "react";
-import {colorPalette} from "../../models/alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
+import {colorPalette} from "../../common/constants/ColorPalette";
 
 
 export const ClassicAlarm = () => {
@@ -33,13 +33,13 @@ export const ClassicAlarm = () => {
         return (
             <View style={styles.container}>
                 <View style={{flexDirection: "row"}}>
-                    <View style={{flexDirection: "row"}}>
+                    <View style={{flexDirection: "row", justifyContent: 'center'}}>
                         <Text
                             style={styles.date}>{addLeadingZeros(getHours(date))} : {addLeadingZeros(getMinutes(date))}</Text>
                     </View>
                     <View style={{flexDirection: "row"}}>
                         <TouchableOpacity style={styles.button3} onPress={() => showTimepicker()} >
-                            <Clock stroke={colorPalette.primary} width={50} height={50} />
+                            <Clock stroke={colorPalette.primary} width={40} height={40} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -56,7 +56,7 @@ export const ClassicAlarm = () => {
                     weekdays={weekdays}
                     setWeekdays={(e: any) => setWeekdays(e)}
                 />
-                <TouchableOpacity style={styles.button4}>
+                <TouchableOpacity style={styles.button4} >
                     <Text style={{display: 'flex', alignSelf: 'center', marginTop: 15, color: 'white', fontWeight: 'bold'}}> Save </Text>
                 </TouchableOpacity>
             </View>
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
     date: {
         color: 'white',
         fontSize: 80,
-        marginLeft: 25,
         fontWeight: '300',
 
     },
@@ -94,6 +93,5 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: colorPalette.middle,
         // color: 'white',
-
     }
 });

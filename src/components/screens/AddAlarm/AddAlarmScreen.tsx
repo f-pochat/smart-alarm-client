@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {View, TouchableOpacity, StyleSheet} from "react-native";
 import {ArrowLeft} from "react-native-feather";
-import {colorPalette} from "../../models/alarm";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import {SmartAlarm} from "../AddAlarm/SmartAlarm";
-import {ClassicAlarm} from "../AddAlarm/ClassicAlarm";
+import {SmartAlarm} from "./SmartAlarm";
+import {ClassicAlarm} from "./ClassicAlarm";
+import {colorPalette} from "../../common/constants/ColorPalette";
 
 const AddAlarmScreen = ({navigation}: { navigation: any }) => {
 

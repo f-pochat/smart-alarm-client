@@ -2,10 +2,20 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text} from "react-native";
 import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
-import {colorPalette, IAlarm} from "../../models/alarm";
+import { Day, IAlarm} from "../../models/alarm";
+import {colorPalette} from "../common/constants/ColorPalette";
 
 const HomeScreen = ({navigation}: { navigation: any }) => {
-    const [alarms, setAlarms] = useState<IAlarm[]>([])
+    const [alarms, setAlarms] = useState<IAlarm[]>([{
+        time: new Date(),
+        name: 'Desperateee',
+    },
+        {
+            time: new Date('December 17, 1995 07:25:00'),
+            name: "Morning",
+            days: ["Monday", "Tuesday","Wednesday"]
+        }
+    ])
     const [date, setDate] = useState(new Date());
 
     useEffect(() => {
