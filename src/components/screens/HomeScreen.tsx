@@ -6,6 +6,7 @@ import {IAlarm} from "../../models/alarm";
 import {colorPalette} from "../common/constants/ColorPalette";
 import axios from "axios";
 import {BACKEND_URL} from "../common/constants/Integration";
+import WeatherBanner from "./WeatherBanner";
 
 const HomeScreen = ({navigation}: { navigation: any }) => {
     const [alarms, setAlarms] = useState<IAlarm[]>([{
@@ -58,15 +59,14 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content'/>
-            {
-            }
             <ScrollView
                 contentContainerStyle={{paddingBottom: 30}}
                 style={styles.scroll}>
+                <WeatherBanner/>
                 {
                     alarms.map(a => {
                         return (
-                            <Alarm alarm={a}/>
+                            <Alarm key={a.name} alarm={a}/>
                         )
                     })
                 }

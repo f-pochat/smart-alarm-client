@@ -14,7 +14,6 @@ export default function App() {
         const id = await AsyncStorage.getItem('deviceId')
         if (!id) {
             const token = Math.floor(Math.random()*1000000000).toString()
-            console.log(token)
             await AsyncStorage.setItem('deviceId', token)
         }
         return id
@@ -26,21 +25,24 @@ export default function App() {
 
   return (
       <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
+          <Stack.Navigator initialRouteName="Home" screenOptions={{animationTypeForReplace:'pop'}}>
               <Stack.Screen name="Home" component={HomeScreen} options={() => ({
 
                   title: "",
                   headerStyle: {
                       backgroundColor:colorPalette.tertiary
                   },
+                  animationTypeForReplace: 'push',
+                  animation:'slide_from_right'
               })}
               />
               <Stack.Screen name="AddAlarm" component={AddAlarmScreen} options={() => ({
-
                   title: "",
                   headerStyle: {
                       backgroundColor:colorPalette.tertiary
                   },
+                  animationTypeForReplace: 'push',
+                  animation:'slide_from_right'
               })}
               />
           </Stack.Navigator>

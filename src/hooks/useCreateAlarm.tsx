@@ -11,11 +11,11 @@ interface IOptions {
 }
 
 export const useCreateAlarm = (alarm: IAlarm, options?: IOptions) => {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const createAlarm = async () => {
-        console.log(BACKEND_URL + 'alarm')
+        setLoading(true);
         axios.post(BACKEND_URL + '/alarm', {
             ...alarm,
             createdAt: new Date(),
