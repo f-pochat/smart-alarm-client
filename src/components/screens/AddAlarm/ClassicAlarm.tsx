@@ -42,7 +42,7 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
     const newAlarm: IAlarm = {
         time: date,
         name: text,
-        days: weekdays.map((day: any) => getDayByNumber(day))
+        days: weekdays
     }
 
     const {createAlarm, loading} = useCreateAlarm(newAlarm,
