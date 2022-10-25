@@ -18,8 +18,6 @@ export const useCreateAlarm = (alarm: IAlarm, options?: IOptions) => {
         setLoading(true);
         axios.post(BACKEND_URL + '/alarm', {
             ...alarm,
-            createdAt: new Date(),
-            isActive: true,
             deviceId: await AsyncStorage.getItem('deviceId')
         })
             .then((response) => {
