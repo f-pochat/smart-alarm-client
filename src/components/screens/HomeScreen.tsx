@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text} from "react-native";
+import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text, RefreshControl} from "react-native";
 import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {IAlarm} from "../../models/alarm";
@@ -7,26 +7,12 @@ import {colorPalette} from "../common/constants/ColorPalette";
 import axios from "axios";
 import {BACKEND_URL} from "../common/constants/Integration";
 import WeatherBanner from "./WeatherBanner";
+import {useGetAlarms} from "../../hooks/useGetAlarms";
 
 const HomeScreen = ({navigation}: { navigation: any }) => {
-    const [alarms, setAlarms] = useState<IAlarm[]>([{
-        time: new Date(),
-        name: 'Desperateee',
-    },
-        {
-            time: new Date('December 17, 1995 07:25:00'),
-            name: "Morning",
-            days: ["Monday", "Tuesday", "Wednesday"]
-        }
-    ])
+    const [alarms, setAlarms] = useState<IAlarm[]>([])
     const [date, setDate] = useState(new Date());
-
-    const getAlarms = async () => {
-        axios.get(BACKEND_URL+'/alarms').then((res) => {
-                setAlarms(res.data)
-            }
-        )
-    }
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         navigation.setOptions({
@@ -38,6 +24,14 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
 
         })
     })
+
+    const {fetchData} = useGetAlarms({
+        onCompleted: r => {
+            console.log(r)
+            setAlarms(r)
+        },
+    });
+
     const onChange = (event: any, selectedDate: any) => {
         setAlarms(state => [
             ...state,
@@ -56,12 +50,26 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
     const showTimepicker = () => {
         showMode('time');
     };
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchData();
+        setRefreshing(false);
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle='light-content'/>
             <ScrollView
                 contentContainerStyle={{paddingBottom: 30}}
-                style={styles.scroll}>
+                style={styles.scroll}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
+            >
                 <WeatherBanner/>
                 {
                     alarms.map(a => {
