@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import {Switch} from 'react-native-switch';
 import {colorPalette} from "../common/constants/ColorPalette";
+import {getDayByNumber} from "../../models/alarm";
 
 export const addLeadingZeros=(num:number) => {
     return String(num).padStart(2,'0')
@@ -15,7 +16,7 @@ const Alarm = (props: any) => {
             <View style={styles.rowContainer}>
                 <Text
                     style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
-                    {`${addLeadingZeros(props.alarm.time.getHours())}:${addLeadingZeros(props.alarm.time.getMinutes())}`}
+                    {`${addLeadingZeros(new Date(props.alarm.time).getHours())}:${addLeadingZeros(new Date(props.alarm.time).getMinutes())}`}
                 </Text>
                 <Switch
                     backgroundActive='#0784b5'
@@ -34,7 +35,7 @@ const Alarm = (props: any) => {
                 </Text>
                 <Text style={[styles.textName, isEnabled ? styles.enabledColor : styles.disabledColor]}>
                     {
-                        !props.alarm.days ? "Tomorrow" : props.alarm.days.map((d:Day) => (d.toString()[0])).join("-")
+                        !props.alarm.days ? "Tomorrow" : props.alarm.days.map((d:Day) => getDayByNumber(d)).join("-")
                     }
                 </Text>
             </View>

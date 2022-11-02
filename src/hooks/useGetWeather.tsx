@@ -17,7 +17,6 @@ export const useGetWeather = () => {
                     tomorrowWeather: weatherStatus(r.data.daily.weathercode[1]),
                     datWeather: weatherStatus(r.data.daily.weathercode[2]),
                 }
-                console.log(weather)
                 setWeather(weather)
                 setLoading(false)
             })

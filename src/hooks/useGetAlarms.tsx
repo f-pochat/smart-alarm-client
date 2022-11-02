@@ -1,24 +1,23 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import {BACKEND_URL} from "../components/common/constants/Integration";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IOptions {
     onCompleted?: (data: any) => void;
     onError?: (error: any) => void;
 }
 
-export const useGetAlarms = (options: IOptions) => {
+export const useGetAlarms = (options: IOptions, deviceId: string) => {
     const [alarms, setAlarms] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState("")
-    const [deviceId, setDeviceId] = useState(AsyncStorage.getItem('deviceId'))
 
     const fetch = () => {
-        axios.get(BACKEND_URL + '/alarm/' + deviceId)
+        axios.get(BACKEND_URL + "121")
             .then((response) => {
                 options.onCompleted && options.onCompleted(response.data)
                 setAlarms(response.data)
+                console.log('res',response.data)
                 setLoading(false)
             })
             .catch((e) => {
@@ -27,10 +26,6 @@ export const useGetAlarms = (options: IOptions) => {
                 setLoading(false)
             })
     }
-
-    useEffect(() => {
-        fetch();
-    }, [])
 
     return {alarms, loading, error, fetchData: fetch}
 }

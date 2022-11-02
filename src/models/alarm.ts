@@ -1,27 +1,28 @@
-export type Day = "Monday" | "Tuesday" | "Wednesday" | 'Thursday' |  "Friday" | "Saturday" | "Sunday"
+export type Day = "M" | "T" | "W" | 'Th' |  "F" | "S" | "Su"
 
 export interface IAlarm {
-    time: Date,
+    time: string,
     name: string,
-    days?: Day[]
+    days?: number[]
+    deviceId: string,
 }
 
 export const getDayByNumber = (day: number): Day => {
     switch (day) {
         case 1:
-            return "Monday"
+            return "M"
         case 2:
-            return "Tuesday"
+            return "T"
         case 3:
-            return "Wednesday"
+            return "W"
         case 4:
-            return "Thursday"
+            return "Th"
         case 5:
-            return "Friday"
+            return "F"
         case 6:
-            return "Saturday"
+            return "S"
         case 7:
-            return "Sunday"
+            return "Su"
         default:
             throw Error("Invalid day number")
     }

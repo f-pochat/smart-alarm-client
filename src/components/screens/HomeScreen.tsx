@@ -4,15 +4,15 @@ import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {IAlarm} from "../../models/alarm";
 import {colorPalette} from "../common/constants/ColorPalette";
-import axios from "axios";
-import {BACKEND_URL} from "../common/constants/Integration";
 import WeatherBanner from "./WeatherBanner";
 import {useGetAlarms} from "../../hooks/useGetAlarms";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({navigation}: { navigation: any }) => {
     const [alarms, setAlarms] = useState<IAlarm[]>([])
     const [date, setDate] = useState(new Date());
     const [refreshing, setRefreshing] = useState(false);
+    const [deviceId, setDeviceId] = useState("");
 
     useEffect(() => {
         navigation.setOptions({
@@ -23,14 +23,19 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
             )
 
         })
-    })
+        AsyncStorage.getItem('deviceId').then(r => {
+            setDeviceId(r!);
+            fetchData();
+        })
+    }, []);
 
     const {fetchData} = useGetAlarms({
         onCompleted: r => {
-            console.log(r)
             setAlarms(r)
         },
-    });
+        onError: e => console.log('error1', e)
+    }, deviceId);
+
 
     const onChange = (event: any, selectedDate: any) => {
         setAlarms(state => [
@@ -59,26 +64,26 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle='light-content'/>
-            <ScrollView
-                contentContainerStyle={{paddingBottom: 30}}
-                style={styles.scroll}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                    />
-                }
-            >
-                <WeatherBanner/>
-                {
-                    alarms.map(a => {
+            {/*<StatusBar barStyle='light-content'/>*/}
+            {/*<ScrollView*/}
+            {/*    contentContainerStyle={{paddingBottom: 30}}*/}
+            {/*    style={styles.scroll}*/}
+            {/*    refreshControl={*/}
+            {/*        <RefreshControl*/}
+            {/*            refreshing={refreshing}*/}
+            {/*            onRefresh={onRefresh}*/}
+            {/*        />*/}
+            {/*    }*/}
+            {/*>*/}
+            <WeatherBanner/>
+            {alarms ? (
+                    alarms?.map(a => {
                         return (
                             <Alarm key={a.name} alarm={a}/>
                         )
-                    })
-                }
-            </ScrollView>
+                    }))
+                : ''}
+            {/*</ScrollView>*/}
         </View>
     );
 };
@@ -86,6 +91,7 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colorPalette.background,
+        flex: 1,
     },
     header: {
         display: 'flex',
