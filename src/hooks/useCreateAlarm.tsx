@@ -15,7 +15,7 @@ export const useCreateAlarm = (alarm: IAlarm, options?: IOptions) => {
 
     const createAlarm = async () => {
         setLoading(true);
-        axios.post(BACKEND_URL + '/classic', {
+        axios.post(BACKEND_URL + 'classic', {
             ...alarm
         })
             .then((response) => {

@@ -61,7 +61,6 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
         fetchData();
         setRefreshing(false);
     }
-    console.log('alarms', typeof alarms)
 
     return (
         <View style={styles.container}>

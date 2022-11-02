@@ -13,10 +13,11 @@ export const useGetAlarms = (options: IOptions, deviceId: string) => {
     const [error, setError] = useState("")
 
     const fetch = () => {
-        axios.get(BACKEND_URL + deviceId)
+        axios.get(BACKEND_URL + "12")
             .then((response) => {
                 options.onCompleted && options.onCompleted(response.data)
                 setAlarms(response.data)
+                console.log('res',response.data)
                 setLoading(false)
             })
             .catch((e) => {

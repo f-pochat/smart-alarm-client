@@ -13,10 +13,10 @@ const Alarm = (props: any) => {
     return (
         <View style={[styles.container, isEnabled ? {backgroundColor: colorPalette.secondary_dark} : {backgroundColor: colorPalette.dark}]}>
             <View style={styles.rowContainer}>
-                {/*<Text*/}
-                {/*    style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>*/}
-                {/*    {`${addLeadingZeros(props.alarm.time.getHours())}:${addLeadingZeros(props.alarm.time.getMinutes())}`}*/}
-                {/*</Text>*/}
+                <Text
+                    style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                    {`${addLeadingZeros(new Date(props.alarm.time).getHours())}:${addLeadingZeros(new Date(props.alarm.time).getMinutes())}`}
+                </Text>
                 <Switch
                     backgroundActive='#0784b5'
                     backgroundInactive='gray'
