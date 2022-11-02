@@ -41,12 +41,10 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
     };
 
     const newAlarm: IAlarm = {
-        time: "2022-11-02T18:54:05.034Z",
-        name: "string",
-        days: [
-            0
-        ],
-        deviceId: "12"
+        time: String(date),
+        name: text,
+        days: weekdays,
+        deviceId: "121"
     }
     console.log('data', typeof date, typeof weekdays, typeof text, typeof String(AsyncStorage.getItem('deviceId')))
 
