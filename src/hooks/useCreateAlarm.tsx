@@ -1,4 +1,3 @@
-import alarm from "../components/screens/Alarm";
 import {IAlarm} from "../models/alarm";
 import {useState} from "react";
 import axios from "axios";
@@ -16,9 +15,8 @@ export const useCreateAlarm = (alarm: IAlarm, options?: IOptions) => {
 
     const createAlarm = async () => {
         setLoading(true);
-        axios.post(BACKEND_URL + '/alarm', {
-            ...alarm,
-            deviceId: await AsyncStorage.getItem('deviceId')
+        axios.post(BACKEND_URL + '/classic', {
+            ...alarm
         })
             .then((response) => {
                 options?.onCompleted && options.onCompleted(response.data)

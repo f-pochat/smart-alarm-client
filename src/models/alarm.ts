@@ -1,9 +1,10 @@
 export type Day = "Monday" | "Tuesday" | "Wednesday" | 'Thursday' |  "Friday" | "Saturday" | "Sunday"
 
 export interface IAlarm {
-    time: Date,
+    time: string,
     name: string,
-    days?: Day[]
+    days?: number[]
+    deviceId: string,
 }
 
 export const getDayByNumber = (day: number): Day => {

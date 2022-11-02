@@ -20,7 +20,7 @@ export default function App() {
     }
 
     useEffect( () => {
-        storeDate().then(r => console.log(r))
+        storeDate().then(r => console.log('date',r))
     })
 
   return (

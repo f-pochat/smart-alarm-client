@@ -18,6 +18,7 @@ import {useCreateAlarm} from "../../../hooks/useCreateAlarm";
 import {getDayByNumber, IAlarm} from "../../../models/alarm";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export const ClassicAlarm = ({navigation}:{navigation: any}) => {
@@ -40,10 +41,14 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
     };
 
     const newAlarm: IAlarm = {
-        time: date,
-        name: text,
-        days: weekdays
+        time: "2022-11-02T18:54:05.034Z",
+        name: "string",
+        days: [
+            0
+        ],
+        deviceId: "12"
     }
+    console.log('data', typeof date, typeof weekdays, typeof text, typeof String(AsyncStorage.getItem('deviceId')))
 
     const {createAlarm, loading} = useCreateAlarm(newAlarm,
         {
@@ -52,7 +57,7 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
                 setTimeout(() => {navigation.navigate('Home')},1000)
             },
             onError: (error: any) => {
-                console.log(error)
+                console.log('errror',error)
             }
         })
 
