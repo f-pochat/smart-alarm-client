@@ -46,7 +46,6 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
         days: weekdays,
         deviceId: "121"
     }
-    console.log('data', typeof date, typeof weekdays, typeof text, typeof String(AsyncStorage.getItem('deviceId')))
 
     const {createAlarm, loading} = useCreateAlarm(newAlarm,
         {
