@@ -15,7 +15,7 @@ import React, {useState} from "react";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {colorPalette} from "../../common/constants/ColorPalette";
 import {useCreateAlarm} from "../../../hooks/useCreateAlarm";
-import {getDayByNumber, IAlarm} from "../../../models/alarm";
+import {IAlarm} from "../../../models/alarm";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
