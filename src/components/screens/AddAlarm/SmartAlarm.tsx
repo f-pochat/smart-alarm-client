@@ -3,7 +3,7 @@ import {
     Text,
     TouchableOpacity,
     View,
-    KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Button
+    KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Button, TextInput, ActivityIndicator
 } from "react-native";
 import {addLeadingZeros} from "../Alarm";
 import {getHours, getMinutes} from "date-fns";
@@ -11,10 +11,21 @@ import React, {useState} from "react";
 import {colorPalette} from "../../common/constants/ColorPalette";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {Clock} from "react-native-feather";
+import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
+import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import { SAlarm} from "../../../models/alarm";
+import TimePicker from 'react-time-picker'
+import {useCreateSmartAlarm} from "../../../hooks/useCreateSmartAlarm";
 
-
+//https://github.com/mmazzarolo/react-native-modal-datetime-picker
 export const SmartAlarm = ({navigation}: { navigation: any }) => {
     const [date, setDate] = useState(new Date());
+    const [datePrep, setDatePrep] = useState(new Date());
+    const [text, setText] = useState("");
+    const [isDatePickerVisiblePrep, setDatePickerVisibilityPrep] = useState(false);
+    const [saved, setSaved] = useState(false)
+
+
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
     const showDatePicker = () => {
@@ -30,6 +41,41 @@ export const SmartAlarm = ({navigation}: { navigation: any }) => {
         hideDatePicker();
     };
 
+    const showDatePickerPrep = () => {
+        setDatePickerVisibilityPrep(true);
+    };
+
+    const hideDatePickerPrep = () => {
+        setDatePickerVisibilityPrep(false);
+    };
+
+    const handleConfirmPrep = (date: any) => {
+        setDatePrep(date)
+        hideDatePickerPrep();
+    };
+
+    const newAlarm: SAlarm = {
+        name: text,
+        alarmLocationLat: 'string',
+        alarmLocationLong: 'string',
+        destinationLocationLat: 'string',
+        destinationLocationLong: 'string',
+        preparationTime: Number((new Date(datePrep).getHours()) * 60 + (new Date(datePrep).getMinutes())),
+        deviceId: '121'
+    }
+    const {createAlarm, loading} = useCreateSmartAlarm(newAlarm,
+        {
+            onCompleted: () => {
+                setSaved(true);
+                setTimeout(() => {
+                    navigation.navigate('Home')
+                }, 1000)
+            },
+            onError: (error: any) => {
+                console.log('errror', error)
+            }
+        })
+
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -38,7 +84,32 @@ export const SmartAlarm = ({navigation}: { navigation: any }) => {
                 <View>
                     <View style={{flexDirection: "row"}}>
                         <View style={{flexDirection: "column", justifyContent: 'center', flex: 6}}>
-                            <Text style={styles.text}>Tiempo de preparacion</Text>
+                            <Text style={styles.text}>Preparation time</Text>
+                        </View>
+                        <View style={{flexDirection: "column", justifyContent: 'center', flex: 4}}>
+                            <Text
+                                style={styles.date}>{addLeadingZeros(getHours(datePrep))} : {addLeadingZeros(getMinutes(datePrep))}</Text>
+                        </View>
+                        <View style={{flexDirection: "column", flex: 1}}>
+                            <View>
+                                <TouchableOpacity style={styles.button3} onPress={() => showDatePickerPrep()}>
+                                    <Clock style={styles.clock} stroke={colorPalette.primary} width={35} height={35}/>
+                                </TouchableOpacity>
+                                <TimePicker value={datePrep} />
+                                <DateTimePickerModal
+                                    isVisible={isDatePickerVisiblePrep}
+                                    mode="time"
+                                    onConfirm={handleConfirmPrep}
+                                    onCancel={hideDatePickerPrep}
+                                    is24Hour={true}
+                                    locale="en_GB"
+                                />
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{flexDirection: "row", marginTop: 15}}>
+                        <View style={{flexDirection: "column", justifyContent: 'center', flex: 6}}>
+                            <Text style={styles.text}>Arrival time</Text>
                         </View>
                         <View style={{flexDirection: "column", justifyContent: 'center', flex: 4}}>
                             <Text
@@ -60,8 +131,22 @@ export const SmartAlarm = ({navigation}: { navigation: any }) => {
                             </View>
                         </View>
                     </View>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Name"
+                        value={text}
+                        onChangeText={text => setText(text)}
+                        selectionColor={colorPalette.quaternary}
+                    />
+                    <TouchableOpacity style={styles.button4} onPress={createAlarm}>
+                        {
+                            loading ?
+                                <ActivityIndicator style={{margin: 'auto'}} color='white'/>
+                                : saved ? <FontAwesomeIcon color='white' icon={faCheck}/>
+                                    : (<Text style={{margin: 'auto', color: 'white', fontWeight: 'bold'}}> Save </Text>)
+                        }
+                    </TouchableOpacity>
                 </View>
-
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     )
@@ -92,5 +177,24 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 15,
-    }
+    },
+    textInput: {
+        height: 45,
+        borderRadius: 15,
+        paddingLeft: 10,
+        color: 'white',
+        marginTop: 20,
+        backgroundColor: colorPalette.middle,
+        // color: 'white',
+    },
+    button4: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginTop: 10,
+        marginLeft: 15,
+        marginRight: 15,
+        height: 50,
+        backgroundColor: colorPalette.primary,
+    },
 });

@@ -12,13 +12,12 @@ import {getHours, getMinutes} from "date-fns";
 import {Clock} from "react-native-feather";
 import DaysPicker from "./DaysPicker";
 import React, {useState} from "react";
-import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {colorPalette} from "../../common/constants/ColorPalette";
 import {useCreateAlarm} from "../../../hooks/useCreateAlarm";
 import {getDayByNumber, IAlarm} from "../../../models/alarm";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 export const ClassicAlarm = ({navigation}:{navigation: any}) => {
@@ -27,18 +26,21 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
     const [weekdays, setWeekdays] = useState([]);
     const [saved, setSaved] = useState(false)
 
-    const onChange = (event: any, selectedDate: any) => {
-        setDate(selectedDate)
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
     };
 
-    const showMode = (currentMode: any) => {
-        DateTimePickerAndroid.open({
-            value: date,
-            onChange,
-            mode: currentMode,
-            is24Hour: true,
-        });
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
     };
+
+    const handleConfirm = (date: any) => {
+        setDate(date)
+        hideDatePicker();
+    };
+
 
     const newAlarm: IAlarm = {
         time: String(date),
@@ -58,9 +60,6 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
             }
         })
 
-    const showTimepicker = () => {
-        showMode('time');
-    };
         return (
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -73,8 +72,16 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
                                     style={styles.date}>{addLeadingZeros(getHours(date))} : {addLeadingZeros(getMinutes(date))}</Text>
                             </View>
                             <View style={{flexDirection: "row"}}>
-                                <TouchableOpacity style={styles.button3} onPress={() => showTimepicker()} >
-                                    <Clock stroke={colorPalette.primary} width={35} height={35} />
+                                <TouchableOpacity style={styles.button3} onPress={() => showDatePicker()} >
+                                    <Clock stroke={colorPalette.primary} width={55} height={55} />
+                                    <DateTimePickerModal
+                                        isVisible={isDatePickerVisible}
+                                        mode="time"
+                                        onConfirm={handleConfirm}
+                                        onCancel={hideDatePicker}
+                                        is24Hour={true}
+                                        locale="en_GB"
+                                    />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -109,7 +116,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     button3: {
-        marginTop: 40,
+        marginTop: 20,
         width: '40%',
         height: 40,
         marginLeft: 30,
