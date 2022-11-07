@@ -38,10 +38,10 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
 
 
     const onChange = (event: any, selectedDate: any) => {
-        setAlarms(state => [
-            ...state,
-            selectedDate
-        ])
+            setAlarms(state => [
+                ...state,
+                selectedDate
+            ])
     };
 
     const showMode = (currentMode: any) => {

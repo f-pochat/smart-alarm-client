@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, TouchableOpacity, StyleSheet} from "react-native";
 import {ArrowLeft} from "react-native-feather";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import {SmartAlarm} from "./SmartAlarm";
+import SmartAlarm from "./SmartAlarm/SmartAlarm";
 import {ClassicAlarm} from "./ClassicAlarm";
 import {colorPalette} from "../../common/constants/ColorPalette";
 
@@ -15,7 +15,8 @@ const AddAlarmScreen = ({navigation}: { navigation: any }) => {
             headerLeft: () => (
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <ArrowLeft stroke={colorPalette.primary}/>
-                </TouchableOpacity>)
+                </TouchableOpacity>
+            )
         })
     }, [])
 
