@@ -7,6 +7,16 @@ export interface IAlarm {
     deviceId: string,
 }
 
+export interface SAlarm {
+    name: string,
+    alarmLocationLat: string,
+    alarmLocationLong: string,
+    destinationLocationLat: string,
+    destinationLocationLong: string,
+    preparationTime: number,
+    deviceId: string
+}
+
 export const getDayByNumber = (day: number): Day => {
     switch (day) {
         case 1:
