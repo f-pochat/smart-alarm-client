@@ -14,7 +14,7 @@ import DaysPicker from "./DaysPicker";
 import React, {useState} from "react";
 import {colorPalette} from "../../common/constants/ColorPalette";
 import {useCreateAlarm} from "../../../hooks/useCreateAlarm";
-import {getDayByNumber, IAlarm} from "../../../models/alarm";
+import {IAlarm} from "../../../models/alarm";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
