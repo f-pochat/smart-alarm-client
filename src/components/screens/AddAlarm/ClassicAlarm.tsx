@@ -23,7 +23,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 export const ClassicAlarm = ({navigation}:{navigation: any}) => {
     const [date, setDate] = useState(new Date());
     const [text, setText] = useState("");
-    const [weekdays, setWeekdays] = useState([]);
+    const [weekdays, setWeekdays] = useState("");
     const [saved, setSaved] = useState(false)
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -43,7 +43,7 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
 
 
     const newAlarm: IAlarm = {
-        time: String(date),
+        time: date,
         name: text,
         days: weekdays,
         deviceId: "121"

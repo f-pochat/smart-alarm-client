@@ -23,12 +23,12 @@ const Alarm = (props: any) => {
     const {deleteAlarm} = useDeleteAlarm(alarmId, !!props.alarm.preparationTime,
         {
             onCompleted: () => {
+                props.deleteAlarm()
             },
             onError: (error: any) => {
                 console.log('errror', error)
             }
         })
-
     return (
         <TouchableHighlight onLongPress={onLongPressButton} underlayColor={colorPalette.secondary_dark}>
             <>
@@ -62,7 +62,7 @@ const Alarm = (props: any) => {
                         </Text>
                         <Text style={[styles.textName, isEnabled ? styles.enabledColor : styles.disabledColor]}>
                             {
-                                !props.alarm.days ? "Tomorrow" : props.alarm.days.map((d: Day) => getDayByNumber(d)).join("-")
+                                !props.alarm.days ? "Tomorrow" : props.alarm.days.split(',').map((d: string) => getDayByNumber(d)).join("-")
                             }
                         </Text>
                     </View>
