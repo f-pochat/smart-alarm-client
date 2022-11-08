@@ -22,14 +22,11 @@ export const SmartAlarmScreen = (props: any) => {
     const [directions, setDirections] = useState<LatLng[]>([]);
     const [time, setTime] = useState(0)
     const GOOGLE_MAPS_APIKEY = 'AIzaSyBotUu5eZz1kxGNb3Ipn6z5HmxY6JTTt0E';
-    const [result, setResult] = useState({distance: 0, duration: 0});
     const [date, setDate] = useState(new Date());
     const [datePrep, setDatePrep] = useState(new Date());
     const [text, setText] = useState("");
     const [isDatePickerVisiblePrep, setDatePickerVisibilityPrep] = useState(false);
     const [saved, setSaved] = useState(false)
-
-
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
     useEffect(() => {
@@ -68,22 +65,25 @@ export const SmartAlarmScreen = (props: any) => {
 
     const newAlarm: SAlarm = {
         name: text,
-        alarmLocationLat: 'string',
-        alarmLocationLong: 'string',
-        destinationLocationLat: 'string',
-        destinationLocationLong: 'string',
+        alarmLocationLat: directions[0]?.latitude.toString(),
+        alarmLocationLong: directions[0]?.longitude.toString(),
+        destinationLocationLat: directions[1]?.latitude.toString(),
+        destinationLocationLong: directions[1]?.longitude.toString(),
         preparationTime: Number((new Date(datePrep).getHours()) * 60 + (new Date(datePrep).getMinutes())),
+        arrivalTime: date.toString(),
         deviceId: '121'
     }
     const {createAlarm, loading} = useCreateSmartAlarm(newAlarm,
         {
             onCompleted: () => {
+                console.log(newAlarm)
                 setSaved(true);
                 setTimeout(() => {
                     // navigation.navigate('Home')
                 }, 1000)
             },
             onError: (error: any) => {
+                console.log(newAlarm)
                 console.log('errror', error)
             }
         })
@@ -198,10 +198,6 @@ export const SmartAlarmScreen = (props: any) => {
                                 strokeWidth={4}
                                 strokeColor={colorPalette.secondary}
                                 onReady={result => {
-                                    setResult({
-                                        distance: result.distance,
-                                        duration: result.duration
-                                    })
                                     setTime(result.duration)
                                     console.log(`Distance: ${result.distance} km`)
                                     console.log(`Duration: ${result.duration} min.`)
