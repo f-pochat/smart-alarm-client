@@ -79,10 +79,19 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
             {alarms && (
                     alarms?.map(a => {
                         return (
-                            <Alarm key={a.name} alarm={a} deleteAlarm={() => {
-                                console.log("Deleting..")
-                                onRefresh()
-                            }}/>
+                            <>
+                                {
+                                    a.preparationTime ?
+                                        <SmartAlarm key={a.name} alarm={a}/>
+                                    :
+                                    <Alarm key={a.name} alarm={a} deleteAlarm={() => {
+                                    console.log("Deleting..")
+                                    onRefresh()
+                                }}/>
+
+                                }
+                            </>
+
                         )
                     }))}
             </ScrollView>

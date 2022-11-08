@@ -12,30 +12,35 @@ const SmartAlarm =(props:any)=>{
 
         <View style={[styles.container, isEnabled ? {backgroundColor: colorPalette.secondary_dark} : {backgroundColor: colorPalette.dark}]}>
             <View style={styles.rowContainer}>
-                <View style={{flexDirection:'column', alignItems: 'flex-start', justifyContent: 'center'}}>
-                  <Text style={[styles.textLabel,isEnabled ? styles.enabledColor : styles.disabledColor]}>
-                      Arrival Time
-                  </Text>
-                    <Text
-                        style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
-                        {`${addLeadingZeros(new Date(props.alarm.arrivalTime).getHours())}:${addLeadingZeros(new Date(props.alarm.arrivalTime).getMinutes())}`}
-                    </Text>
-                    <Text style={[styles.textLabel,isEnabled ? styles.enabledColor : styles.disabledColor]}>
-                        Preparation Time
-                    </Text>
-                    <Text
-                        style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
-                        {`${addLeadingZeros(new Date(props.alarm.preparationTime).getHours())}:${addLeadingZeros(new Date(props.alarm.preparationTime).getMinutes())}`}
-                    </Text>
-                    <Text style={[styles.textName, isEnabled ? styles.enabledColor : styles.disabledColor]}>
-                        {props.alarm.name}
-                    </Text>
-                </View>
+                    <View style={styles.arrivalTime}>
+                        <Text style={[styles.textLabel,isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                            Arrival Time
+                        </Text>
+                        <Text
+                            style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                            {`${addLeadingZeros(new Date(props.alarm.arrivalTime).getHours())}:${addLeadingZeros(new Date(props.alarm.arrivalTime).getMinutes())}`}
+                        </Text>
+                    </View>
+                    <View style={{flexDirection:"column"}} >
+                        <Text style={[styles.textLabel,isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                            Preparation Time
+                        </Text>
+                        <View style={{flexDirection:"row" ,alignItems:'center'}}>
+                            <Text
+                                style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                                {props.alarm.preparationTime}
+                            </Text>
+                            <Text style={[{fontSize: 10}, isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                                minutes
+                            </Text>
+                        </View>
+                    </View>
+
 
                 <Switch
                     backgroundActive={colorPalette.secondary_shadow}
                     backgroundInactive='gray'
-                    circleActiveColor={colorPalette.secondary}
+                    circleActiveColor={colorPalette.primary_shadow}
                     circleBorderWidth={0}
                     renderActiveText={false}
                     renderInActiveText={false}
@@ -43,8 +48,10 @@ const SmartAlarm =(props:any)=>{
                     value={isEnabled}
                 />
             </View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 30, paddingRight: 30}}>
-
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 5, paddingRight: 30}}>
+                <Text style={[styles.textName, isEnabled ? styles.enabledColor : styles.disabledColor]}>
+                    {props.alarm.name}
+                </Text>
             </View>
         </View>
     );
@@ -52,7 +59,7 @@ const SmartAlarm =(props:any)=>{
 
 const styles = StyleSheet.create({
     container: {
-        height: 150,
+        height: 100,
         margin: 10,
         borderRadius: 20,
         padding: 5,
@@ -62,7 +69,7 @@ const styles = StyleSheet.create({
         flex: 2,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text: {
         fontSize: 25,
@@ -70,13 +77,14 @@ const styles = StyleSheet.create({
     },
 
     textName: {
-        fontSize: 15,
-        marginLeft: 5,
+        fontSize: 20,
+        marginLeft: 20,
         marginBottom: 10,
     },
     textLabel: {
         fontSize: 10,
         marginLeft: 5,
+        marginTop:10
     },
 
     disabledColor: {
@@ -88,5 +96,9 @@ const styles = StyleSheet.create({
         color: '#ccc',
         fontWeight: '300'
     },
+    arrivalTime:{
+        flexDirection:"column"
+    }
+
 })
 export default SmartAlarm
