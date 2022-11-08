@@ -3,7 +3,7 @@ export type Day = "M" | "T" | "W" | 'Th' |  "F" | "S" | "Su"
 export interface IAlarm {
     time: Date,
     name: string,
-    days?: string,
+    days: number[],
     deviceId: string,
 }
 
