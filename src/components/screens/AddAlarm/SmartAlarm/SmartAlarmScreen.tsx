@@ -21,7 +21,7 @@ export const SmartAlarmScreen = (props: any) => {
     const [location, setLocation] = useState<LatLng | null>(null);
     const [directions, setDirections] = useState<LatLng[]>([]);
     const [time, setTime] = useState(0)
-    const GOOGLE_MAPS_APIKEY = 'AIzaSyBotUu5eZz1kxGNb3Ipn6z5HmxY6JTTt0E';
+    const GOOGLE_MAPS_APIKEY = '';
     const [date, setDate] = useState(new Date());
     const [datePrep, setDatePrep] = useState(new Date());
     const [text, setText] = useState("");
