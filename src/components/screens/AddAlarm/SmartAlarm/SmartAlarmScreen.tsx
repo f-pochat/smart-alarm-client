@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions, View, Text, Platform, Keyboard, TouchableOpacity} from "react-native";
+import {StyleSheet,View, Text, Platform, Keyboard, TouchableOpacity} from "react-native";
 import MapView, {LatLng} from "react-native-maps";
 import React, {useEffect, useState} from "react";
 import {Marker} from 'react-native-maps';
@@ -21,7 +21,7 @@ export const SmartAlarmScreen = (props: any) => {
     const [location, setLocation] = useState<LatLng | null>(null);
     const [directions, setDirections] = useState<LatLng[]>([]);
     const [time, setTime] = useState(0)
-    const GOOGLE_MAPS_APIKEY = '';
+    const GOOGLE_MAPS_APIKEY = 'AIzaSyBotUu5eZz1kxGNb3Ipn6z5HmxY6JTTt0E';
     const [date, setDate] = useState(new Date());
     const [datePrep, setDatePrep] = useState(new Date());
     const [text, setText] = useState("");

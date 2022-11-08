@@ -18,6 +18,7 @@ const SmartAlarmMap = (props: any) => {
             await Location.requestForegroundPermissionsAsync();
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location.coords);
+            setDirections([...directions, location.coords])
         })();
     },[]);
 

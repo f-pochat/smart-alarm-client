@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text, RefreshControl} from "react-native";
 import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
-import {IAlarm} from "../../models/alarm";
 import {colorPalette} from "../common/constants/ColorPalette";
 import WeatherBanner from "./WeatherBanner";
 import {useGetAlarms} from "../../hooks/useGetAlarms";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import SmartAlarm from "./AddAlarm/SmartAlarm/SmartAlarm";
 
 const HomeScreen = ({navigation}: { navigation: any }) => {
-    const [alarms, setAlarms] = useState<IAlarm[]>([])
+    const [alarms, setAlarms] = useState<any[]>([])
     const [date, setDate] = useState(new Date());
     const [refreshing, setRefreshing] = useState(false);
     const [deviceId, setDeviceId] = useState("");
@@ -64,26 +64,36 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
 
     return (
         <View style={styles.container}>
-            {/*<StatusBar barStyle='light-content'/>*/}
-            {/*<ScrollView*/}
-            {/*    contentContainerStyle={{paddingBottom: 30}}*/}
-            {/*    style={styles.scroll}*/}
-            {/*    refreshControl={*/}
-            {/*        <RefreshControl*/}
-            {/*            refreshing={refreshing}*/}
-            {/*            onRefresh={onRefresh}*/}
-            {/*        />*/}
-            {/*    }*/}
-            {/*>*/}
             <WeatherBanner/>
-            {alarms ? (
-                    alarms?.map(a => {
-                        return (
-                            <Alarm key={a.name} alarm={a}/>
-                        )
-                    }))
-                : ''}
-            {/*</ScrollView>*/}
+            <StatusBar barStyle='light-content'/>
+            <ScrollView
+                contentContainerStyle={{paddingBottom: 30}}
+                style={styles.scroll}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
+            >
+                {alarms ? (
+                        alarms?.map(a => {
+                            return (
+                                <>
+                                {
+                                    a.arrivalTime ?
+                                        <SmartAlarm key={a.name} alarm={a}/>
+                                        :
+                                        <Alarm key={a.name} alarm={a}/>
+
+                                }
+                                </>
+
+
+                            )
+                        }))
+                    : ''}
+                </ScrollView>
         </View>
     );
 };

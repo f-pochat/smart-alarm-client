@@ -4,6 +4,7 @@ export enum colorPalette {
     background = '#192428',
     primary = '#39ace7',
     secondary = '#0784b5',
+    secondary_shadow = '#023c53',
     middle = '#717c80',
     tertiary = '#414c50',
     quaternary = '#2d383c',
