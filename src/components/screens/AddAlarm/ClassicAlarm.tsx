@@ -43,7 +43,7 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
 
 
     const newAlarm: IAlarm = {
-        time: String(date),
+        time: date,
         name: text,
         days: weekdays,
         deviceId: "121"

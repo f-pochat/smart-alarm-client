@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text, RefreshControl} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, ScrollView, StatusBar, RefreshControl} from "react-native";
 import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {IAlarm} from "../../models/alarm";
@@ -64,26 +64,28 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
 
     return (
         <View style={styles.container}>
-            {/*<StatusBar barStyle='light-content'/>*/}
-            {/*<ScrollView*/}
-            {/*    contentContainerStyle={{paddingBottom: 30}}*/}
-            {/*    style={styles.scroll}*/}
-            {/*    refreshControl={*/}
-            {/*        <RefreshControl*/}
-            {/*            refreshing={refreshing}*/}
-            {/*            onRefresh={onRefresh}*/}
-            {/*        />*/}
-            {/*    }*/}
-            {/*>*/}
+            <StatusBar barStyle='light-content'/>
+            <ScrollView
+                contentContainerStyle={{paddingBottom: 30}}
+                style={styles.scroll}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
+            >
             <WeatherBanner/>
-            {alarms ? (
+            {alarms && (
                     alarms?.map(a => {
                         return (
-                            <Alarm key={a.name} alarm={a}/>
+                            <Alarm key={a.name} alarm={a} deleteAlarm={() => {
+                                console.log("Deleting..")
+                                onRefresh()
+                            }}/>
                         )
-                    }))
-                : ''}
-            {/*</ScrollView>*/}
+                    }))}
+            </ScrollView>
         </View>
     );
 };
