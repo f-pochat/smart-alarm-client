@@ -64,6 +64,7 @@ export const SmartAlarmClock = (props: SmartAlarmClockProps) => {
         destinationLocationLat: 'string',
         destinationLocationLong: 'string',
         preparationTime: Number((new Date(datePrep).getHours()) * 60 + (new Date(datePrep).getMinutes())),
+        arrivalTime: date,
         deviceId: '121'
     }
     const {createAlarm, loading} = useCreateSmartAlarm(newAlarm,

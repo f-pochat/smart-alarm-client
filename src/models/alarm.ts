@@ -14,7 +14,7 @@ export interface SAlarm {
     destinationLocationLat: string,
     destinationLocationLong: string,
     preparationTime: number,
-    arrivalTime: string,
+    arrivalTime: Date,
     deviceId: string
 }
 
