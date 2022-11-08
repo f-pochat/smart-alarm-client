@@ -7,7 +7,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import { colorPalette } from "../../../common/constants/ColorPalette";
 import {Box} from "react-native-feather";
 
-const SmartAlarm = (props: any) => {
+const SmartAlarmMap = (props: any) => {
     const [location, setLocation] = useState<LatLng|null>(null);
     const [directions, setDirections] = useState<LatLng[]>([]);
     const [time, setTime] = useState(0)
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'flex-start',
+        marginTop: 0,
     },
     map: {
         width: '100%',
@@ -118,4 +119,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SmartAlarm
+export default SmartAlarmMap

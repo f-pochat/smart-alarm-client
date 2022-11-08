@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import {View, TouchableOpacity, StyleSheet} from "react-native";
 import {ArrowLeft} from "react-native-feather";
 import {createMaterialTopTabNavigator} from "@react-navigation/material-top-tabs";
-import SmartAlarm from "./SmartAlarm/SmartAlarm";
+import SmartAlarmMap from "./SmartAlarm/SmartAlarmMap";
 import {ClassicAlarm} from "./ClassicAlarm";
 import {colorPalette} from "../../common/constants/ColorPalette";
+import {SmartAlarmScreen} from "./SmartAlarm/SmartAlarmScreen";
 
 const AddAlarmScreen = ({navigation}: { navigation: any }) => {
 
@@ -35,7 +36,7 @@ const AddAlarmScreen = ({navigation}: { navigation: any }) => {
                         height: 3
                     }
                 }}>
-                <Tab.Screen name="Smart" component={SmartAlarm}/>
+                <Tab.Screen name="Smart" component={SmartAlarmScreen}/>
                 <Tab.Screen name="Classic" component={ClassicAlarm}/>
             </Tab.Navigator>
         </View>
