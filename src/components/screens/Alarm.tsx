@@ -29,6 +29,21 @@ const Alarm = (props: any) => {
                 console.log('errror', error)
             }
         })
+
+    const showDay = (): string => {
+        if(!props.alarm.preparationTime) {
+            if (new Date(props.alarm.time).getHours() < new Date().getHours() || (
+                new Date(props.alarm.time).getHours() == new Date().getHours() && new Date(props.alarm.time).getMinutes() < new Date().getMinutes())
+            ) {
+                return "Tomorrow"
+            } else {
+                return "Today"
+            }
+        }else{
+            return ''
+        }
+    }
+
     return (
         <TouchableHighlight onLongPress={onLongPressButton} underlayColor={colorPalette.secondary_dark}>
             <>
@@ -62,7 +77,7 @@ const Alarm = (props: any) => {
                         </Text>
                         <Text style={[styles.textName, isEnabled ? styles.enabledColor : styles.disabledColor]}>
                             {
-                                !props.alarm.days ? "Tomorrow" : props.alarm.days.split(',').map((d: string) => getDayByNumber(d)).join("-")
+                                !props.alarm.days ? showDay() : props.alarm.days.split(',').map((d: string) => getDayByNumber(d)).join("-")
                             }
                         </Text>
                     </View>
