@@ -17,7 +17,6 @@ export const useGetAlarms = (options: IOptions, deviceId: string) => {
             .then((response) => {
                 options.onCompleted && options.onCompleted(response.data)
                 setAlarms(response.data)
-                console.log('res',response.data)
                 setLoading(false)
             })
             .catch((e) => {

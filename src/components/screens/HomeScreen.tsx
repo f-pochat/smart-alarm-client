@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text, RefreshControl} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text} from "react-native";
 import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {IAlarm} from "../../models/alarm";
