@@ -1,9 +1,9 @@
 export type Day = "M" | "T" | "W" | 'Th' |  "F" | "S" | "Su"
 
 export interface IAlarm {
-    time: string,
+    time: Date,
     name: string,
-    days?: number[]
+    days: number[],
     deviceId: string,
 }
 
@@ -18,7 +18,8 @@ export interface SAlarm {
     deviceId: string
 }
 
-export const getDayByNumber = (day: number): Day => {
+export const getDayByNumber = (dayNum: string): Day => {
+    const day = parseInt(dayNum)
     switch (day) {
         case 1:
             return "M"
@@ -32,6 +33,7 @@ export const getDayByNumber = (day: number): Day => {
             return "F"
         case 6:
             return "S"
+        case 0:
         case 7:
             return "Su"
         default:

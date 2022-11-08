@@ -2,7 +2,6 @@ import {IAlarm} from "../models/alarm";
 import {useState} from "react";
 import axios from "axios";
 import {BACKEND_URL} from "../components/common/constants/Integration";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IOptions {
     onCompleted?: (data: any) => void;

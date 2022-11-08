@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, ScrollView, StatusBar, TouchableOpacity, Text, RefreshControl} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, ScrollView, StatusBar, RefreshControl} from "react-native";
 import Alarm from "./Alarm";
 import {DateTimePickerAndroid} from "@react-native-community/datetimepicker";
 import {colorPalette} from "../common/constants/ColorPalette";
@@ -64,7 +64,6 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
 
     return (
         <View style={styles.container}>
-            <WeatherBanner/>
             <StatusBar barStyle='light-content'/>
             <ScrollView
                 contentContainerStyle={{paddingBottom: 30}}
@@ -76,24 +75,17 @@ const HomeScreen = ({navigation}: { navigation: any }) => {
                     />
                 }
             >
-                {alarms ? (
-                        alarms?.map(a => {
-                            return (
-                                <>
-                                {
-                                    a.arrivalTime ?
-                                        <SmartAlarm key={a.name} alarm={a}/>
-                                        :
-                                        <Alarm key={a.name} alarm={a}/>
-
-                                }
-                                </>
-
-
-                            )
-                        }))
-                    : ''}
-                </ScrollView>
+            <WeatherBanner/>
+            {alarms && (
+                    alarms?.map(a => {
+                        return (
+                            <Alarm key={a.name} alarm={a} deleteAlarm={() => {
+                                console.log("Deleting..")
+                                onRefresh()
+                            }}/>
+                        )
+                    }))}
+            </ScrollView>
         </View>
     );
 };
