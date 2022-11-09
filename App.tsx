@@ -5,6 +5,7 @@ import AddAlarmScreen from "./src/components/screens/AddAlarm/AddAlarmScreen";
 import React, {useEffect} from "react";
 import {colorPalette} from "./src/components/common/constants/ColorPalette";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {LogBox} from "react-native";
 
 const Stack = createNativeStackNavigator()
 
@@ -20,6 +21,7 @@ export default function App() {
     }
 
     useEffect( () => {
+        LogBox.ignoreAllLogs();
         storeDate().then(r => console.log('date',r))
     })
 

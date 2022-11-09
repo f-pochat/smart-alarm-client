@@ -5,13 +5,14 @@ import {colorPalette} from "../common/constants/ColorPalette";
 import {getDayByNumber} from "../../models/alarm";
 import {useDeleteAlarm} from "../../hooks/useDeleteAlarm";
 import {useCreateAlarm} from "../../hooks/useCreateAlarm";
+import {useToggleAlarm} from "../../hooks/useToggleAlarm";
 
 export const addLeadingZeros = (num: number) => {
     return String(num).padStart(2, '0')
 }
 
 const Alarm = (props: any) => {
-    const [isEnabled, setIsEnabled] = useState(true);
+    const [isEnabled, setIsEnabled] = useState(props.alarm.isActive);
     const [modalVisible, setModalVisible] = useState(false);
     const [alarmId, setAlarmId] = useState('')
 
@@ -61,7 +62,10 @@ const Alarm = (props: any) => {
                             circleBorderWidth={0}
                             renderActiveText={false}
                             renderInActiveText={false}
-                            onValueChange={() => setIsEnabled(!isEnabled)}
+                            onValueChange={() => {
+                                setIsEnabled(!isEnabled)
+                                useToggleAlarm('classic', alarmId)
+                            }}
                             value={isEnabled}
                         />
                     </View>

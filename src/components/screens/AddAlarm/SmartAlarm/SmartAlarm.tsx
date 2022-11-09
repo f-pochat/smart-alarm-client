@@ -2,11 +2,17 @@ import {StyleSheet, Text, View} from "react-native";
 import {colorPalette} from "../../../common/constants/ColorPalette";
 import {Switch} from "react-native-switch";
 import {getDayByNumber} from "../../../../models/alarm";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {addLeadingZeros} from "../../Alarm";
+import {useToggleAlarm} from "../../../../hooks/useToggleAlarm";
 
-const SmartAlarm =(props:any)=>{
-    const [isEnabled, setIsEnabled] = useState(true);
+const SmartAlarm = (props:any)=>{
+
+    const [isEnabled, setIsEnabled] = useState(props.alarm.isActive);
+
+    useEffect(() => {
+        setIsEnabled(props.alarm.isActive)
+    },[props])
 
     return(
 
@@ -44,7 +50,10 @@ const SmartAlarm =(props:any)=>{
                     circleBorderWidth={0}
                     renderActiveText={false}
                     renderInActiveText={false}
-                    onValueChange={() => setIsEnabled(!isEnabled)}
+                    onValueChange={() => {
+                        setIsEnabled(!isEnabled)
+                        useToggleAlarm('smart', props.alarm.id)
+                    }}
                     value={isEnabled}
                 />
             </View>
