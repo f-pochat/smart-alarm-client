@@ -100,7 +100,7 @@ const Alarm = (props: any) => {
                             <View style={styles.modalView}>
                                 <Text style={styles.modalText}>Do you want to delete alarm?</Text>
                                 <View style={{flexDirection: "row"}}>
-                                    <View style={{flexDirection: "column", justifyContent: 'center', flex: 6}}>
+                                    <View style={{flexDirection: "column", justifyContent: 'center', flex: 5}}>
                                         <Pressable style={styles.yesNoPressable} onPress={() => {
                                             deleteAlarm()
                                             setModalVisible(!modalVisible)
@@ -108,7 +108,8 @@ const Alarm = (props: any) => {
                                             <Text>Yes</Text>
                                         </Pressable>
                                     </View>
-                                    <View style={{flexDirection: "column", justifyContent: 'center', flex: 6}}>
+                                    <View style={{flexDirection: "column", justifyContent: 'center', flex: 1}}/>
+                                    <View style={{flexDirection: "column", justifyContent: 'center', flex: 5}}>
                                         <Pressable style={styles.yesNoPressable}
                                                    onPress={() => setModalVisible(!modalVisible)}>
                                             <Text>No</Text>
