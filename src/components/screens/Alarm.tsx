@@ -53,7 +53,7 @@ const Alarm = (props: any) => {
                     <View style={styles.rowContainer}>
                         <Text
                             style={[styles.text, isEnabled ? styles.enabledColor : styles.disabledColor]}>
-                            {`${addLeadingZeros(new Date(props.alarm.time).getHours())}:${addLeadingZeros(new Date(props.alarm.time).getMinutes())}`}
+                            {`${addLeadingZeros(new Date(props.alarm.time).getHours() + 3)}:${addLeadingZeros(new Date(props.alarm.time).getMinutes())}`}
                         </Text>
                         <Switch
                             backgroundActive='#0784b5'

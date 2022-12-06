@@ -36,18 +36,21 @@ export const ClassicAlarm = ({navigation}:{navigation: any}) => {
         setDatePickerVisibility(false);
     };
 
-    const handleConfirm = (date: any) => {
+    const handleConfirm = (date: Date) => {
         setDate(date)
         hideDatePicker();
     };
 
-
+    const dateUpdated = new Date(date)
+    dateUpdated.setHours(date.getHours() - 3)
     const newAlarm: IAlarm = {
-        time: date,
+        time: dateUpdated,
         name: text,
         days: weekdays,
         deviceId: "121"
     }
+
+    console.log('date',date)
 
     const {createAlarm, loading} = useCreateAlarm(newAlarm,
         {

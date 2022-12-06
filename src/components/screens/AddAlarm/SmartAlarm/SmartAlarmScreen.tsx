@@ -62,6 +62,8 @@ export const SmartAlarmScreen = (props: any) => {
         setDatePrep(date)
         hideDatePickerPrep();
     };
+    const dateUpdated = new Date(date)
+    dateUpdated.setHours(date.getHours() - 3)
 
     const newAlarm: SAlarm = {
         name: text,
@@ -70,7 +72,7 @@ export const SmartAlarmScreen = (props: any) => {
         destinationLocationLat: directions[1]?.latitude.toString(),
         destinationLocationLong: directions[1]?.longitude.toString(),
         preparationTime: Number((new Date(datePrep).getHours()) * 60 + (new Date(datePrep).getMinutes())),
-        arrivalTime: date,
+        arrivalTime: dateUpdated,
         deviceId: '121'
     }
     const {createAlarm, loading} = useCreateSmartAlarm(newAlarm,
