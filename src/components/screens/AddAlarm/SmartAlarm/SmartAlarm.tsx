@@ -31,7 +31,7 @@ const SmartAlarm = (props: any) => {
         setModalVisible(true)
         setAlarmId(props.alarm.id)
     }
-
+    console.log(props.alarm.arrivalTime)
     return (
         <TouchableHighlight onLongPress={onLongPressButton} underlayColor={colorPalette.secondary_dark}>
             <>
